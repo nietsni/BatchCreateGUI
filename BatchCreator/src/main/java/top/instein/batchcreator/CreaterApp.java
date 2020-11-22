@@ -31,6 +31,8 @@ public class CreaterApp {
 	private JButton btnEchoOn;
 	private JButton btnTest;
 	private JButton btnPauseExit;
+	private JButton btnAddRemark;
+	private JTextField textFieldRemark;
 
 	/**
 	 * Launch the application.
@@ -83,6 +85,8 @@ public class CreaterApp {
 			panel.add(getBtnEchoOff());
 			panel.add(getBtnEchoOn());
 			panel.add(getBtnPauseExit());
+			panel.add(getBtnAddRemark());
+			panel.add(getTextFieldRemark());
 		}
 		return panel;
 	}
@@ -106,7 +110,7 @@ public class CreaterApp {
 					addToBatch("echo "+netLine);
 				}
 			});
-			btnAddEcho.setBounds(6, 31, 90, 30);
+			btnAddEcho.setBounds(6, 31, 96, 30);
 		}
 		return btnAddEcho;
 	}
@@ -187,5 +191,25 @@ public class CreaterApp {
 			btnPauseExit.setBounds(210, 0, 90, 30);
 		}
 		return btnPauseExit;
+	}
+	private JButton getBtnAddRemark() {
+		if (btnAddRemark == null) {
+			btnAddRemark = new JButton("Add remark");
+			btnAddRemark.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					addToBatch("rem "+getTextFieldRemark().getText());
+				}
+			});
+			btnAddRemark.setBounds(6, 62, 96, 30);
+		}
+		return btnAddRemark;
+	}
+	private JTextField getTextFieldRemark() {
+		if (textFieldRemark == null) {
+			textFieldRemark = new JTextField();
+			textFieldRemark.setColumns(10);
+			textFieldRemark.setBounds(108, 62, 658, 30);
+		}
+		return textFieldRemark;
 	}
 }
