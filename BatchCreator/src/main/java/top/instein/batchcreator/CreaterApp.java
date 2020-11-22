@@ -8,10 +8,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
+
+import org.apache.commons.io.FileUtils;
+
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class CreaterApp {
@@ -24,6 +29,8 @@ public class CreaterApp {
 	private JTextField textFieldEcho;
 	private JButton btnEchoOff;
 	private JButton btnEchoOn;
+	private JButton btnTest;
+	private JButton btnPauseExit;
 
 	/**
 	 * Launch the application.
@@ -64,6 +71,7 @@ public class CreaterApp {
 		frmV.getContentPane().setLayout(null);
 		frmV.getContentPane().add(getPanel());
 		frmV.getContentPane().add(getScrollPane_2());
+		frmV.getContentPane().add(getBtnTest());
 	}
 	private JPanel getPanel() {
 		if (panel == null) {
@@ -74,6 +82,7 @@ public class CreaterApp {
 			panel.add(getTextFieldEcho());
 			panel.add(getBtnEchoOff());
 			panel.add(getBtnEchoOn());
+			panel.add(getBtnPauseExit());
 		}
 		return panel;
 	}
@@ -104,7 +113,7 @@ public class CreaterApp {
 	private JScrollPane getScrollPane_2() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
-			scrollPane.setBounds(6, 268, 772, 287);
+			scrollPane.setBounds(6, 230, 772, 287);
 			scrollPane.setViewportView(getTextAreaContent());
 		}
 		return scrollPane;
@@ -146,5 +155,37 @@ public class CreaterApp {
 			btnEchoOn.setBounds(108, 0, 90, 30);
 		}
 		return btnEchoOn;
+	}
+	private JButton getBtnTest() {
+		if (btnTest == null) {
+			btnTest = new JButton("test");
+			btnTest.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+						File tempBatchFile = new File("temp.bat");
+						FileUtils.writeStringToFile(tempBatchFile, getTextAreaContent().getText(), "gbk");
+						String batchPath = tempBatchFile.getAbsolutePath();
+						Runtime.getRuntime().exec("cmd /c start "+batchPath);
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+			});
+			btnTest.setBounds(688, 525, 90, 30);
+		}
+		return btnTest;
+	}
+	private JButton getBtnPauseExit() {
+		if (btnPauseExit == null) {
+			btnPauseExit = new JButton("pause&exit");
+			btnPauseExit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					addToBatch("pause");
+					addToBatch("exit");
+				}
+			});
+			btnPauseExit.setBounds(210, 0, 90, 30);
+		}
+		return btnPauseExit;
 	}
 }
