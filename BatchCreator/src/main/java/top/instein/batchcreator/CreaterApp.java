@@ -340,8 +340,13 @@ public class CreaterApp {
 			btnVarAdd = new JButton("Add");
 			btnVarAdd.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					
+					if (comboBoxModel.getSize()==0) {
+						comboBoxModel.addElement("");
+					}
+					
 					comboBoxModel.addElement(textFieldVarName.getText());
-					addToBatchLn(textFieldVarName.getText() + "=" + textFieldVarValue.getText());
+					addToBatchLn("%"+textFieldVarName.getText()+"%");
 				}
 			});
 			btnVarAdd.setBounds(664, 19, 90, 30);
