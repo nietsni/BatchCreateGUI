@@ -117,6 +117,7 @@ public class CreaterApp {
 			panel.add(getBtnAddCMD());
 			panel.add(getTextFieldCMD());
 			panel.add(getPanel_1());
+			panel.add(getBtnIf());
 		}
 		return panel;
 	}
@@ -355,6 +356,7 @@ public class CreaterApp {
 	}
 
 	DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<String>();
+	private JButton btnIf;
 
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
@@ -382,5 +384,20 @@ public class CreaterApp {
 			lblNewLabel.setBounds(20, 25, 83, 18);
 		}
 		return lblNewLabel;
+	}
+	private JButton getBtnIf() {
+		if (btnIf == null) {
+			btnIf = new JButton("if");
+			btnIf.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					addToBatchLn("if varName==varValue ");
+					addToBatchLn("(");
+					addToBatchLn("        tcommands");
+					addToBatchLn("}");
+				}
+			});
+			btnIf.setBounds(353, 0, 90, 30);
+		}
+		return btnIf;
 	}
 }
